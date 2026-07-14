@@ -17,11 +17,14 @@ st.title("📊 Retail Sales Forecasting Dashboard")
 
 st.sidebar.title("Navigation")
 
-try:
-    dataset = pd.read_csv("train.csv")
-except FileNotFoundError:
-    st.error("train.csv not found!")
-    st.stop()
+uploaded_file = st.sidebar.file_uploader(
+    "Upload train.csv",
+    type=["csv"]
+)
+
+if uploaded_file is not None:
+
+    dataset = pd.read_csv(uploaded_file)
 
     dataset["Order Date"] = pd.to_datetime(
         dataset["Order Date"],
